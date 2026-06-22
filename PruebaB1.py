@@ -3,7 +3,6 @@ import requests
 
 requests.packages.urllib3.disable_warnings()
 
-# 1. URL a la raíz nativa de configuración
 api_url = "https://192.168.56.102/restconf/data/Cisco-IOS-XE-native:native"
 
 headers = { 
@@ -13,7 +12,6 @@ headers = {
 
 basicauth = ("cisco", "cisco123!")
 
-# 2. Estructura YANG corregida sin el elemento 'name' en passive-interface
 yangConfig = {
     "Cisco-IOS-XE-native:native": {
         "router": {
@@ -34,7 +32,7 @@ yangConfig = {
                     ],
                     "passive-interface": {
                         "interface": [
-                            "Loopback1"  # Se define directamente como string en la lista
+                            "Loopback1" 
                         ]
                     }
                 }
@@ -45,7 +43,6 @@ yangConfig = {
 
 print("Enviando petición PATCH corregida para OSPF 10...")
 
-# 3. Envío de la petición
 resp = requests.patch(
     api_url, 
     data=json.dumps(yangConfig), 
