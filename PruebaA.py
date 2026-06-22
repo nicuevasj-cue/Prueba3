@@ -1,17 +1,15 @@
 from ncclient import manager
 import xml.dom.minidom
 
-# 1. Datos de conexión al Router CSR1000v
 router = {
     "host": "192.168.56.102",
-    "port": 830,                   # Puerto estándar de NETCONF
+    "port": 830,                   
     "username": "cisco",
     "password": "cisco123!",
     "hostkey_verify": False
 }
 
-# 2. Configuración XML para cambiar el Hostname y crear la Loopback 2
-# Nota: Reemplaza APELLIDO-APELLIDO con tus datos reales.
+
 netconf_config = """
 <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
@@ -39,15 +37,12 @@ netconf_config = """
 print("Conectando al router mediante NETCONF en el puerto 830...")
 
 try:
-    # 3. Establecer la sesión NETCONF de forma segura
     with manager.connect(**router) as m:
         print("¡Conexión SSH NETCONF establecida con éxito!")
         print("Enviando configuración (Cambio de Hostname y Loopback 2)...")
         
-        # 4. Enviar la configuración al running-config
         response = m.edit_config(target='running-config', config=netconf_config)
         
-        # 5. Validar si el router aceptó los cambios
         if "<ok/>" in str(response):
             print("\n--------------------------------------------------")
             print("STATUS: ¡ÉXITO! (Se recibió la etiqueta <ok/>)")
