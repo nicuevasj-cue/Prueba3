@@ -1,10 +1,8 @@
 import json
 import requests
 
-# Deshabilitar advertencias de certificados SSL
 requests.packages.urllib3.disable_warnings()
 
-# Datos de conexión (IP 192.168.56.102)
 router_ip = "192.168.56.102"
 api_url = f"https://{router_ip}/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/extended=PERMIT_DEVASC"
 
@@ -14,9 +12,7 @@ headers = {
 }
 basicauth = ("cisco", "cisco123!")
 
-# ESTRUCTURA CORREGIDA (Modelo Nativo Aplanado):
-# 1. Se usa 'dst-eq' directamente en lugar de anidar 'dst-port'.
-# 2. Se eliminan tildes en las descripciones para evitar errores de escritura (DMI).
+
 yangConfig = {
     "Cisco-IOS-XE-acl:extended": {
         "name": "PERMIT_DEVASC",
