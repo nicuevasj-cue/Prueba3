@@ -3,7 +3,6 @@ import requests
 
 requests.packages.urllib3.disable_warnings()
 
-# 1. URL hacia la raíz nativa de configuración del router
 api_url = "https://192.168.56.102/restconf/data/Cisco-IOS-XE-native:native"
 
 headers = { 
@@ -13,8 +12,6 @@ headers = {
 
 basicauth = ("cisco", "cisco123!")
 
-# 2. Estructura YANG para modificar las líneas VTY 0 a 4 y de 5 a 15
-# Colocamos "ssh" en 'transport/input/none/vty' para deshabilitar Telnet
 yangConfig = {
     "Cisco-IOS-XE-native:native": {
         "line": {
@@ -48,7 +45,6 @@ yangConfig = {
 
 print("Enviando petición PATCH para deshabilitar Telnet en las líneas VTY...")
 
-# 3. Envío de la petición PATCH
 resp = requests.patch(
     api_url, 
     data=json.dumps(yangConfig), 
